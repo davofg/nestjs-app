@@ -8,12 +8,12 @@ export class GetAppStatusQueryHandler implements IQueryHandler<GetAppStatusQuery
         private readonly getter: AppStatusGetter
     ) { }
 
-    async execute(_: GetAppStatusQuery): Promise<{ 
-        status: string; 
+    async execute(_: GetAppStatusQuery): Promise<{
+        status: string;
         timestamp: string;
     }> {
         const appStatus = this.getter.get();
-        
+
         return {
             status: appStatus.status,
             timestamp: appStatus.timestamp
