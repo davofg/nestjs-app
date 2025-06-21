@@ -1,4 +1,4 @@
-import { AppStatus } from '../../domain/app-status';
+import { AppStatus } from '../app-status';
 
 export class AppStatusGetter {
   get(): AppStatus {

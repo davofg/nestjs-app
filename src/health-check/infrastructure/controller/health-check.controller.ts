@@ -1,13 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppStatusGetter } from '../../application/get-app-status/app-status-getter';
-import { AppStatus } from '../../domain/app-status';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetAppStatusQuery } from 'src/health-check/application/get-app-status/get-app-status.query';
 
 @Controller('health-check')
 export class HealthCheckController {
-  private readonly appStatusGetter = new AppStatusGetter();
+  constructor(private readonly queryBus: QueryBus) { }
 
   @Get()
-  getStatus(): AppStatus {
-    return this.appStatusGetter.get();
+  async getStatus() {
+    return this.queryBus.execute(new GetAppStatusQuery);
   }
 }
