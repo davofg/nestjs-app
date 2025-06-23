@@ -11,4 +11,4 @@ import { UuidJsUuidGenerator } from './infrastructure/service/uuidjs-uuid-genera
   exports: ['UuidGenerator'],
 })
 
-export class SharedModule {}
+export class SharedModule { }
