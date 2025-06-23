@@ -11,20 +11,16 @@ import { TypeOrmProduct } from './infrastructure/typeorm/typeorm-product.entity'
     CqrsModule,
     TypeOrmModule.forFeature([TypeOrmProduct])
   ],
-  controllers: [GetProductController],
+  controllers: [
+    GetProductController
+  ],
   providers: [
     GetProductQueryHandler, 
-    TypeOrmProductRepository,
     {
       provide: 'ProductRepository',
       useClass: TypeOrmProductRepository
-    },
+    }
   ],
-  exports: [
-    {
-      provide: 'ProductRepository',
-      useClass: TypeOrmProductRepository
-    },
-  ],
+  exports: [],
 })
 export class ProductModule {}
