@@ -13,12 +13,7 @@ services:
       - postgres
       - redis
       - rabbitmq
-    command: >
-      sh -c "if [ \"$${NODE_ENV}\" = 'production' ]; then
-                node dist/main;
-             else
-                npx nest start --watch;
-             fi"
+    command: tail -f /dev/null
 
   postgres:
     image: postgres:15-alpine
