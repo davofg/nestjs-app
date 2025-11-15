@@ -9,11 +9,11 @@ import { TypeOrmMapper } from 'src/shared/infrastructure/typeorm/typeorm.mapper'
 @Injectable()
 export class TypeOrmProductMapper implements TypeOrmMapper<Product, TypeOrmProductEntity> {
     public fromDomain(product: Product): TypeOrmProductEntity {
-        const entity = new TypeOrmProductEntity();
-        entity.id = product.id.value;
-        entity.name = product.name.value;
-        entity.price = product.price.value;
-        return entity;
+        return Object.assign(new TypeOrmProductEntity(), {
+            id: product.id.value,
+            name: product.name.value,
+            price: product.price.value,
+        });
     }
 
     public toDomain(product: TypeOrmProductEntity): Product {
