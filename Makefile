@@ -9,10 +9,13 @@ export $(shell sed 's/=.*//' .env.$(ENV))
 
 up:
 	@echo "Starting Docker Compose in <$(ENV)> mode"
-	NODE_ENV=$(ENV) docker compose up --build
+	NODE_ENV=$(ENV) docker compose up -d --wait --remove-orphans
+
+start:
+	docker compose exec nestjs-app npx nest start --watch
 
 down:
-	docker compose down
+	docker compose down --remove-orphans
 
 dev:
 	$(MAKE) ENV=development up
