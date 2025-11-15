@@ -28,4 +28,12 @@ export class TypeOrmProductRepository implements ProductRepository {
       new ProductPrice(product.price),
     );
   }
+
+  async save(product: Product): Promise<void> {
+    await this.repository.save({
+      id: product.id.value,
+      name: product.name.value,
+      price: product.price.value,
+    });
+  }
 }
