@@ -5,8 +5,8 @@ import { ProductPrice } from './value-object/product-price';
 export class Product {
   public constructor(
     private readonly _id: ProductId,
-    private readonly _name: ProductName,
-    private readonly _price: ProductPrice,
+    private _name: ProductName,
+    private _price: ProductPrice,
   ) {}
 
   static create(id: ProductId, name: ProductName, price: ProductPrice): Product {
@@ -23,5 +23,9 @@ export class Product {
 
   get price(): ProductPrice {
     return this._price;
+  }
+
+  public changePrice(price: ProductPrice): void {
+    this._price = price;
   }
 }
