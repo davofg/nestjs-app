@@ -1,3 +1,5 @@
 export class GetProductQuery {
-  constructor(public readonly id: string) {}
+  constructor(
+    public readonly id: string
+  ) { }
 }
