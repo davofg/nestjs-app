@@ -7,11 +7,7 @@ export class Product {
     private readonly _id: ProductId,
     private _name: ProductName,
     private _price: ProductPrice,
-  ) {}
-
-  static create(id: ProductId, name: ProductName, price: ProductPrice): Product {
-    return new Product(id, name, price);
-  }
+  ) { }
 
   get id(): ProductId {
     return this._id;
@@ -23,6 +19,14 @@ export class Product {
 
   get price(): ProductPrice {
     return this._price;
+  }
+
+  public static create(
+    id: ProductId,
+    name: ProductName,
+    price: ProductPrice
+  ): Product {
+    return new Product(id, name, price);
   }
 
   public changePrice(price: ProductPrice): void {
