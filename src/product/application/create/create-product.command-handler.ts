@@ -1,6 +1,5 @@
 import { Inject } from "@nestjs/common";
 import { CommandHandler, EventBus, ICommandHandler } from "@nestjs/cqrs";
-import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { ProductRepository } from "src/product/domain/product.repository";
 import { ProductId } from "src/product/domain/value-object/product-id";
 import { ProductPrice } from "src/product/domain/value-object/product-price";
