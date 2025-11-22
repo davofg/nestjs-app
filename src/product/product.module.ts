@@ -9,6 +9,20 @@ import { UpdateProductPriceCommandHandler } from './application/update-price/upd
 import { TypeOrmProductEntity } from './infrastructure/typeorm/typeorm-product.entity';
 import { CreateProductCommandHandler } from './application/create/create-product.command-handler';
 import { SharedModule } from 'src/shared/shared.module';
+import { ProductCreatedEventHandler } from './infrastructure/event/product-created.event-handler';
+
+const CommandHandlers = [
+  CreateProductCommandHandler, 
+  UpdateProductPriceCommandHandler
+];
+
+const QueryHandlers = [
+  GetProductQueryHandler
+];
+
+const EventHandlers = [
+  ProductCreatedEventHandler
+];
 
 @Module({
   imports: [
@@ -21,13 +35,13 @@ import { SharedModule } from 'src/shared/shared.module';
   ],
   providers: [
     TypeOrmProductMapper,
-    GetProductQueryHandler, 
-    CreateProductCommandHandler, 
-    UpdateProductPriceCommandHandler,
     {
       provide: 'ProductRepository',
       useClass: TypeOrmProductRepository
-    }
+    },
+    ...CommandHandlers,
+    ...QueryHandlers,
+    ...EventHandlers
   ],
   exports: [],
 })
