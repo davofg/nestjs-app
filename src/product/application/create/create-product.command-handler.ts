@@ -1,5 +1,5 @@
 import { Inject } from "@nestjs/common";
-import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
+import { CommandHandler, EventBus, ICommandHandler } from "@nestjs/cqrs";
 import { ProductRepository } from "src/product/domain/product.repository";
 import { ProductId } from "src/product/domain/value-object/product-id";
 import { ProductPrice } from "src/product/domain/value-object/product-price";
@@ -14,7 +14,8 @@ export class CreateProductCommandHandler implements ICommandHandler<CreateProduc
     @Inject('UuidGenerator')
     private readonly uuidGenerator: UuidGenerator,
     @Inject('ProductRepository')
-    private readonly repository: ProductRepository
+    private readonly repository: ProductRepository,
+    private readonly eventBus: EventBus
   ) {}
   
   async execute(command: CreateProductCommand): Promise<void> {
@@ -23,6 +24,10 @@ export class CreateProductCommandHandler implements ICommandHandler<CreateProduc
       new ProductName(command.name),
       new ProductPrice(command.price)
     );
+
+    for (const event of product.pullDomainEvents()) {
+      this.eventBus.publish(event);
+    }
 
     await this.repository.save(product);
   }
